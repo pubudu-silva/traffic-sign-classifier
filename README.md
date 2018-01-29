@@ -28,23 +28,24 @@ As noted earlier we have to augment the dataset such that each class has at leas
 
 ## Training, Validation and Testing with the CNN
 Now that we have pre-processed and augmented the dataset, let's go ahead and train our model. Following is the overview of the simple CNN model I am using for this project.
+
 Layer    | Description
 -------- | -----------
 Input | 32x32x3 RGB image
 5x5 Convolution | 1x1 stride, no padding; 6 filters; output 28x28x6
-RELU | 
+RELU |       
 Max Pooling | 2x2 kernal and stride, no padding; output 14x14x6
-Drop-out | 
+Drop-out |    
 5x5 Convolution | 1x1 stride, no padding; 16 filters; output 10x10x16
-RELU | 
+RELU |     
 Max Pooling | 2x2 kernal and stride, no padding; output 5x5x16
-Drop-out | 
+Drop-out |     
 Fully Connected | input 400; output 120
-RELU | 
-Drop-out | 
+RELU |     
+Drop-out |    
 Fully Connected | input 120; output 84
-RELU | 
-Drop-out | 
+RELU |    
+Drop-out |    
 Fully Connected | input 84; output 43
 Output | 43x1 vector
 
