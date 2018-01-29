@@ -49,4 +49,20 @@ Drop-out |
 Fully Connected | input 84; output 43
 Output | 43x1 vector
 
+With the above model I was able to acheive following accuracies for three datasets with the pre-processed and augmented training data.
+* Training accuracy - 97.5%
+* Validation accuracy - 95.4%
+* Test accuracy - 93.6%
 
+## Iterative Approach Followed in Getting to the Final Solution
+As it is the case with many problems, once you know the solution it is easy to implement. The same is true for this project, but my journey getting to this final solution was iterative as usually it is the case with machine learning in general.
+
+I started with the LeNet lab solution, hence the LeNet architecture. Just using the architecture as is and only modifying the first convolution layer to convolve color images and the last layer to have 43 logits, I could get a validation accuracy about 89%. However the model was seen to be over fitting as the training accuracy was over 99%. 
+
+I tried a list of normalization techniques described above. I experimented with different weights and bias initializing techniques in order to get out of any local optimums the model could be trapped in. Several optimizers were tried, momentum was introduced to the simple stochastic gradient decent. I played with different learning rate adapting techniques, as the model displayed oscillatory behavior half way down the epochs. That got me over 92% of validation accuracy but not above 93%.
+
+Then I tried increasing number of convolution filters in both convolution layers and number of neurons in fully connected layers. I added several convolution and fully connected layers. I increased both depth and breadth of the model in several ways to upgrade the original LeNet, which was designed for 10 handwritten digits classification, to a sufficient complexity to perform relatively complex 43 traffic sign classification. However additional features obviously didn’t help with the over-fitting issues, in fact it got worsened (it makes sense now why it did).
+
+In order to address the over-fitting issue I introduced drop-out layers both between convolution layers and fully connected layers. Tweaking drop-out probability helped a little in getting the validation accuracy closer to 93% but couldn’t get it beyond that.
+A typical way to address over fitting, after regularization (drop-out in this case) fails is to get more training data. As I explained in reasons for augmentation above, training/validation/testing sets were unbalanced with different distributions. Therefore in order to make the training set balance and increase the number of training samples I tried simply filling each class up to 2000 samples by simply copying original samples in that class in iterations until it reach 2000 samples. This didn’t provide any significant accuracy gains, as the training set just got filled by redundant copies of same instanced under this approach. Then I tried to balance the data set, but in slightly sophisticated approach: by making different versions of the original instances by randomly tweaking in offsets, rotations etc. (explained in the augmentation section). I tried making each class 1000 samples, 2000 samples, 3000 samples, 4000 samples and finally 5000 samples. The best results were reached with 5000 samples and going further than that didn’t add significant gains. I tried with lot of variations with higher intensities. When I try to make drastically different versions of original instances, I got rid of over-fitting but started getting slight under-fitting effects, as the training accuracy felt significantly. After experimenting with various settings I settled down to the current set of operations with current intensities (I probably could get even better accuracies if I played with this for some more time). As you can see in the epochs with data augmentation I have almost completely addressed the over-fitting and under-fitting issues. Therefore I didn’t need to use drop-out layers so I trained with drop-out probability of 1.0
+I could have converged to a better validation and training accuracy if included early stop conditions as I continue to train the model over 
