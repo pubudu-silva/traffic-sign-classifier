@@ -50,9 +50,9 @@ Fully Connected | input 84; output 43
 Output | 43x1 vector
 
 With the above model I was able to acheive following accuracies for three datasets with the pre-processed and augmented training data.
-* Training accuracy - 97.5%
-* Validation accuracy - 95.4%
-* Test accuracy - 93.6%
+* Training accuracy - 97.9%
+* Validation accuracy - 96.7%
+* Test accuracy - 94.7%
 
 ## Iterative Approach Followed in Getting to the Final Solution
 As it is the case with many problems, once you know the solution it is easy to implement. The same is true for this project, but my journey getting to this final solution was iterative as usually it is the case with machine learning in general.
